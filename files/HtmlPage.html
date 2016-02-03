@@ -1,0 +1,26 @@
+﻿<p><object classid="CLSID:A93B47FD-9BF6-4DA8-97FC-9270B9D64A6C"
+           codebase="http://10.142.230.139/plugin/h263ctrl.cab#version=1,7,0,23"
+           height="480" id="VaCtrl"
+           width="720">
+   <param name="Url" value="http://10.142.230.139/cgi-bin/video.vam"/>
+   <param name="VSize" value="CIF"/>
+   <param name="RemoteIP" value="10.142.230.139"/>
+   <param name="RemotePort" value="5001"/>
+   <param name="RemoteID" value="25569"/>
+   <param name="DigitalZoomEnableCh" value="false"/>
+   <param name="DisplayTimeFormat" value="1"/>
+   <param name="Deblocking" value="true"/>
+   <param name="DigitalZoomEdit" value="true"/>
+   <param name="Language" value="EN"/>
+   <param name="Stretch" value="1"/>
+</object></p>
+
+<form action="http://10.142.230.139/cgi-bin/setdo.cgi" method="GET" name="on" style="display: inline-block;" target="cmd">
+   <input name="do" type="hidden" value="h"/> <input type="submit" value="Lights On"/>&nbsp;
+</form>
+
+<form action="http://10.142.230.139/cgi-bin/setdo.cgi" method="GET" name="off" style="display: inline-block;" target="cmd">
+   <input name="do" type="hidden" value="l"/> <input type="submit" value="Lights Off"/>&nbsp;
+</form>
+
+<p><iframe height="200" name="cmd" src="http://10.142.230.139/cgi-bin/setdo.cgi" style="display: none;" width="200"></iframe></p>

@@ -1,0 +1,15 @@
+﻿<div class="control border corners" data-bind="style: { left: left() + 'px', top: top() + 'px', width: width() + 'px', height: height() + 'px' }">
+   <div class="inner">
+      <div class="slavelabels " data-bind="foreach: { data: outputLabels }">
+         <span class="info border corners" data-bind="text: $data.currentPosition(), css: { disabled: $data.enabled() == false }"></span>
+      </div>
+      <!-- ko if: outputs().length > 0 -->
+      <div class="joylabels border corners-top" data-bind="foreach: { data: outputs }">
+         <span class="name" data-bind="text: $data.channel() + 1, css: { disabled: $data.enabled() == false } "></span>
+      </div>
+      <!--/ko-->
+      <div class="edit border corners-bottom" data-bind="event: { pointerup: edit }">
+         <span>Edit</span>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,19 @@
+﻿<div class="control border corners" data-bind="style: { left: left() + 'px', top: top() + 'px', height: height() + 'px' }">
+   <!-- ko foreach: groups -->
+   <div class="swicthGroup">
+      <div class="positionlabels border corners-top">
+         <div data-bind="css: { disabled: $data.enabled() == false }">
+            <!-- ko text: $data.label --><!-- /ko --> - Ch: <!-- ko text: $data.channel() + 1 --><!-- /ko -->
+         </div>
+        
+      </div>
+      <!-- ko foreach: $data.switches -->
+      <button data-bind="text: $data.label, css: { active: $data.active }, event: { pointerup: $parents[1].toggle.bind($data, $parent, $index()) }" class="border corners"></button>
+      <!-- /ko -->
+
+   </div>
+   <!-- /ko -->
+   <div class="edit border corners-bottom" data-bind="event: { pointerup: edit }">
+      <span>Edit</span>
+   </div>
+</div>

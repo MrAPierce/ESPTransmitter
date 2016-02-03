@@ -1,0 +1,64 @@
+﻿<h1><span data-bind="html: model.control.icon"></span> Position Switch</h1>
+<p>
+   Servo position switch, create buttons to set servo values.
+</p>
+<hr/>
+<section>
+   <!-- ko component: {
+   name: "generalSettings",
+   params: model.control
+   } -->
+   <!-- /ko -->
+</section>
+<hr />
+<div class="topRightButtons">
+   <button data-bind="click: model.viewModel.addGroup" class="h2 corners">Add Group</button>
+</div>
+<!-- ko foreach: model.control.groups -->
+
+   <div class="relative">
+      <h1>
+         Ch <span data-bind="text: $data.channel() + 1"></span> - <span data-bind="text: $data.label"></span>
+      </h1>
+      <span class="toggle" data-bind="css: { active: $parent.model.viewModel.groupVisible()[$index()]() },click: $parent.model.viewModel.toggleGroup.bind($data,$index())"></span>
+      <button data-bind="visible: $parent.model.viewModel.groupVisible()[$index()](), click: $parent.model.viewModel.removeGroup.bind($data,$index())" class="deletegroup h2 corners">Delete</button>
+   </div>
+
+<div class="buttonGroup" data-bind="css: { active: $parent.model.viewModel.groupVisible()[$index()]() }">
+   <section>
+      <table>
+         <tr>
+            <td><label>Name: </label><input type="text" style="width: 75px;" data-bind="textInput: $data.label"/></td>
+            <td>
+               <label>Ch: </label>
+               <select data-bind="options: $parent.channels,
+                   optionsText: function(item) {
+                       return item + 1;
+                   },
+                   value: $data.channel"></select>
+            </td>
+            <td><label>Enabled: </label><input type="checkbox" data-bind="checked: $data.enabled"/></td>
+         </tr>
+      </table>
+      <!-- ko foreach: $data.switches -->
+      <div class="relative">
+         <span class="h1">&#10061;</span>
+         <input type="text" data-bind="value: $data.label" class="h2"/>
+         <label class="h2">Value</label>
+         <input type="number" min="150" max="560" step="1" data-bind="numericValue: $data.value" class="h2"/>
+         <button class="delete" data-bind="click: $root.model.viewModel.removeSwitch.bind($data, $parentContext.$index(), $index())"></button>
+      </div>
+      <!-- /ko -->
+      <div class="relative newInput">
+         <span class="h1 icon">&#10061;</span>
+         <input type="text" class="h2" placeholder="New button" data-bind="value: $parent.model.viewModel.newButtonName"/>
+         <label class="h2">Value</label>
+         <input type="number" min="150" max="560" step="1" class="h2" data-bind="numericValue: $parent.model.viewModel.newButtonValue"/>
+         <button class="add" data-bind="click: $root.model.viewModel.addSwitch.bind($data, $index())"></button>
+      </div>
+   </section>
+
+</div>
+
+<hr />
+<!-- /ko -->

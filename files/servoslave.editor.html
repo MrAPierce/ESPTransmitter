@@ -1,0 +1,124 @@
+﻿<h1><span data-bind="html: model.control.icon"></span> Servo slave</h1>
+<p>
+   Mix together inputs to create a new outputs.
+</p>
+<hr/>
+<section>
+   <!-- ko component: {
+   name: "generalSettings",
+   params: model.control
+   } -->
+   <!-- /ko -->
+</section>
+<hr />
+<!-- ko if: model.viewModel.valid() == false -->
+<div class="exclamation">!</div>
+<!-- /ko -->
+<div class="topRightButtons">
+   <button data-bind="click: model.addNewOutput" class="h2 corners">Add Output</button>
+</div>
+<!-- ko foreach: { data: model.control.mixOutputs } -->
+<div class="relative">
+   <h1>
+      Ch <span data-bind="text: $data.channel() + 1"></span> - <span data-bind="text: $data.name"></span>
+   </h1>
+   <span class="toggle" data-bind="css: { active: $parent.model.viewModel.outputVisible()[$index()]() },click: $parent.model.toggleOutput.bind($data,$index())"></span>
+   <button data-bind="visible: $parent.model.viewModel.outputVisible()[$index()](), click: $parent.model.viewModel.removeOutput.bind($data,$index())" class="deleteoutput h2 corners">Delete</button>
+</div>
+<hr data-bind="visible:$parent.model.viewModel.outputVisible()[$index()]" />
+<div class="slaveOutputDetails" data-bind="css: { active: $parent.model.viewModel.outputVisible()[$index()] }">
+   
+   <section>
+      <table>
+         <tr>
+            <td><label>Name: </label><input type="text" style="width: 75px;" data-bind="textInput: $data.name"/></td>
+            <td>
+               <label>Ch: </label>
+               <select data-bind="options: $parent.channels,
+                   optionsText: function(item) {
+                       return item + 1;
+                   },
+                   value: $data.channel"></select>
+            </td>
+            <td>
+               <label>Mixing type:</label>
+               <select data-bind="options: $parent.model.mixingTypes,
+                   optionsText: function(item) {
+                       return item.name;
+                   },
+                   optionsValue: 'type',
+                   value: $data.type, event: {  change: $parent.model.viewModel.updateMix.bind($data, $index()) }"></select>
+            </td>
+            <td><label>Enabled: </label><input type="checkbox" data-bind="checked: $data.enabled"/></td>
+         </tr>
+         <tr>
+            <td colspan="5">
+               <div>
+                  <label>Notes:</label>
+               </div>
+               <textarea data-bind="value: $data.notes"></textarea>
+            </td>
+         </tr>
+      </table>
+   </section>
+   <h1>
+      <span data-bind="text: $data.name"></span> Inputs
+   </h1>
+   <hr/>
+   <section>
+      <!-- ko foreach: $data.inputs-->
+      <div data-bind="css: { error: ($root.model.viewModel.validInput()[$parentContext.$index()][$index()].valid == false) }" class="slaveInput">
+         <!-- ko if: $root.model.viewModel.validInput()[$parentContext.$index()][$index()].valid == false -->
+         <table>
+            <tr>
+               <td data-bind="text: $root.model.viewModel.validInput()[$index()].message"></td>
+               <td>
+                  <button data-bind="click: $root.model.viewModel.removeInput.bind($data, $parentContext.$index(), $index(), $parent)" class="delete corners">Remove</button>
+               </td>
+            </tr>
+         </table>
+         <!-- /ko -->
+         <!-- ko if: $root.model.viewModel.validInput()[$parentContext.$index()][$index()].valid == true -->
+         <div class="relative">
+            <h1>
+               &#127918;
+               <span data-bind="text: $root.model.viewModel.validInput()[$parentContext.$index()][$index()].name()"></span> -
+               <span data-bind="text: $root.model.viewModel.validInput()[$parentContext.$index()][$index()].axisName()"></span>
+            </h1>
+            <button data-bind="css: { active: $data.overrideLimits }, click: function() { $data.overrideLimits(!$data.overrideLimits()) }" class="override corners">Override</button>
+            <button data-bind="click: $root.model.viewModel.removeInput.bind($data, $parentContext.$index(), $index(), $parentContext.$data)" class="delete"></button>
+         </div>
+         <!-- ko if: $data.overrideLimits -->
+         <div class="panel corners">
+            <!-- ko component: {
+            name: "axisExpoEditor",
+            params: { limits: $data.limits, parentlimits: $root.model.viewModel.parentLimits()[$parentContext.$index()][$index()], changeCallback: function(data) { console.log(data) } }
+            } -->
+            <!-- /ko -->
+         </div>
+         <!-- /ko -->
+         <!-- /ko -->
+      </div>
+      <!-- /ko -->
+      <div class="newInput relative">
+         <span class="icon h1">&#127918;</span>
+         <select data-bind="options: $parent.model.viewModel.inputControls,
+                   optionsText: function(item) {
+                       return item.control.name;
+                   },
+                   optionsValue: 'id',
+                   value: $parent.model.viewModel.newInputSelection" class="h1"></select>
+         <select data-bind="options: $parent.model.viewModel.newInputControlAxis,
+                   optionsText: function(item) {
+                       return item.axis.name;
+                   },
+                   optionsValue: 'id',
+                   value: $parent.model.viewModel.newInputControlAxisSelection" class="h1"></select>
+         <button data-bind="click: $parent.model.viewModel.addInput.bind($data,$index())" class="add"></button>
+      </div>
+
+   </section>
+
+</div>
+<hr class="hrbottom" />
+<!-- /ko -->

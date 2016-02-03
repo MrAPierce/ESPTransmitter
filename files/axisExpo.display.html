@@ -1,0 +1,24 @@
+﻿<table class="axisExpoData">
+   <tbody>
+      <tr>
+         <td rowspan="5">
+            <!-- ko with: graphModel -->
+            <canvas height="120" data-bind="chartType: $data.type, chartData: $data.graphModel.data, chartOptions: $data.graphModel.options"></canvas>
+            <!-- /ko -->
+         </td>
+         <td><label>Axis Min: <input type="number" data-bind="numericValue: limits.min" min="150" max="560" step="1"></label></td>
+      </tr>
+      <tr>
+         <td><label>Axis Mid: <input type="number" data-bind="numericValue: limits.center" min="150" max="560" step="1"></label></td>
+      </tr>
+      <tr>
+         <td><label>Axis Max: <input type="number" data-bind="numericValue: limits.max" min="150" max="560" step="1"></label></td>
+      </tr>
+      <tr>
+         <td><label>Expo Low: <input type="number" data-bind="numericValue: limits.expo.below" min="0" max="10" step="0.05"></label></td>
+      </tr>
+      <tr>
+         <td><label>Expo High: <input type="number" data-bind="numericValue: limits.expo.above" min="0" max="10" step="0.05"></label></td>
+      </tr>
+   </tbody>
+</table>

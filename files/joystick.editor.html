@@ -1,0 +1,50 @@
+﻿<h1><span data-bind="html: model.control.icon"></span> Joystick</h1>
+<p>
+   General joystick input, has the ability to be bound to servo slave inputs.
+</p>
+<hr />
+<section>
+   <!-- ko component: {
+   name: "generalSettings",
+   params: model.control
+   } -->
+   <!-- /ko -->
+</section>
+<hr />
+<!-- ko foreach: { data: model.control.axis } -->
+<h1>
+   &#128160; 
+   Ch <!-- ko text: $data.channel() + 1 --><!-- /ko --> - <!-- ko text: $data.name --><!-- /ko -->
+</h1>
+<hr />
+<section>
+   <table>
+      <tr>
+         <td><label>Name: </label><input type="text" style="width: 75px;" data-bind="textInput: $data.name"/></td>
+         <td>
+            <label>Ch: </label>
+            <select data-bind="options: $parent.channels,
+                   optionsText: function(item) {
+                       return item + 1;
+                   },
+                   value: $data.channel"></select>
+         </td>
+         <td>
+            <label>Tension:</label>
+            <select data-bind="options: $parent.springTension,
+                   optionsText: function(item) {
+                       return item.name;
+                   },
+                   optionsValue: 'value',
+                   value: $data.springTension"></select>
+         </td>
+         <td><label>Enabled: </label><input type="checkbox" data-bind="checked: $data.enabled"/></td>
+      </tr>
+   </table>
+   <!-- ko component: {
+       name: "axisExpoEditor",
+       params: { limits: $data.limits, changeCallback: $parent.model.expoOnChange }
+   } -->
+   <!-- /ko -->
+</section>
+<!-- /ko -->

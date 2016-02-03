@@ -1,0 +1,12 @@
+﻿<div class="control border corners" data-bind="style: { left: left() + 'px', top: top() + 'px', width: width() + 'px', height: height() + 'px' }">
+   <div data-bind="style: { left: joyLeft() + 'px', top: joyTop() + 'px', width: joyWidth() + 'px', height: joyHeight() + 'px' }, css: 'joy', event: { pointerdown: down, pointermove: move, pointerup: up, mouseleave: up, contextMenu: preventContext }"></div>
+   <div class="inner">
+      <div class="joylabels border corners-top" data-bind="foreach: { data: axis }">
+         <span class="chan" data-bind="text: $data.channel() + 1, css: { disabled: $data.enabled() == false }"></span>
+         <span class="info" data-bind="text: $data.currentServoPosition(), css: { disabled: $data.enabled() == false }"></span>
+      </div>
+      <div class="edit border corners-bottom" data-bind="event: { pointerup: edit }">
+         <span>Edit</span>
+      </div>
+   </div>
+</div>
